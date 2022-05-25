@@ -118,7 +118,7 @@ export const createRepository = async (
   github: Octokit,
   options: CreateRepositoryOptions
 ) => {
-  await github.rest.repos.createForAuthenticatedUser({
+  return await github.rest.repos.createForAuthenticatedUser({
     name: options.name,
     auto_init: true,
   });
@@ -133,7 +133,7 @@ export const createRepositoryFromTemplate = async (
   github: Octokit,
   options: CreateRepositoryFromTemplateOptions
 ) => {
-  await github.rest.repos.createUsingTemplate({
+  return await github.rest.repos.createUsingTemplate({
     name: options.name,
     template_owner: options.templateOwner,
     template_repo: options.templateRepo,

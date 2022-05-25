@@ -7,8 +7,10 @@ const github = new GitHub({
   token,
 });
 
-github.createRepository({
-  name: "svelte-count",
-  templateOwner: "Foreinyel",
-  templateRepo: "svelte-component-template",
-});
+github
+  .createRepository({
+    name: "svelte-count",
+    templateOwner: "Foreinyel",
+    templateRepo: "svelte-component-template",
+  })
+  .then((res) => console.log(res));
