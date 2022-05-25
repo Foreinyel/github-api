@@ -1,10 +1,11 @@
 {
   "name": "@hemyn/github-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "release": "standard-version"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,8 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@types/node": "^17.0.35"
+    "@types/node": "^17.0.35",
+    "standard-version": "^9.5.0"
   },
   "publishConfig": {
     "access": "public",
