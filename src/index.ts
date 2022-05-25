@@ -33,7 +33,7 @@ export class GitHub {
   createRepository(
     options: CreateRepositoryOptions | CreateRepositoryFromTemplateOptions
   ) {
-    if ("template_owner" in options) {
+    if ("templateOwner" in options) {
       return createRepositoryFromTemplate.call(this, this.github, options);
     } else {
       return createRepository.call(this, this.github, options);

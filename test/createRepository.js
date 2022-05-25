@@ -9,6 +9,6 @@ const github = new GitHub({
 
 github.createRepository({
   name: "svelte-count",
-  template_owner: "Foreinyel",
-  template_repo: "svelte-component-template",
+  templateOwner: "Foreinyel",
+  templateRepo: "svelte-component-template",
 });
