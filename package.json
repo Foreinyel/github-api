@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hemyn/utils-node": "^0.2.3",
+    "@hemyn/utils-node": "^0.2.4",
     "@octokit/rest": "^18.12.0",
     "gitignore-parser": "^0.0.2",
     "rimraf": "^3.0.2"

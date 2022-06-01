@@ -1,9 +1,9 @@
-import rimraf from "rimraf";
+// import rimraf from "rimraf";
 
-export const rm = function (dest: string) {
-  return new Promise((resolve) => {
-    rimraf(dest, () => {
-      resolve(true);
-    });
-  });
-};
+// export const rm = function (dest: string) {
+//   return new Promise((resolve) => {
+//     rimraf(dest, () => {
+//       resolve(true);
+//     });
+//   });
+// };

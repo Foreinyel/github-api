@@ -1,7 +1,6 @@
 import { Octokit } from "@octokit/rest";
 import assert from "assert";
-import { download } from "@hemyn/utils-node";
-import { rm } from "./utils";
+import { download, rm } from "@hemyn/utils-node";
 
 import { BaseOptions, getBranches, GetBranchesOptions } from "./api";
 import path from "path";
@@ -91,5 +90,6 @@ export const checkout = async (options: CheckoutOptions) => {
   await rm(path.resolve(options.cwd, filename));
   return {
     folder: filename.split(".")[0],
+    branch: branch.name,
   };
 };

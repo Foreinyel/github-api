@@ -271,6 +271,7 @@ export declare class GitHub {
     createBranch(options: Omit<CreateBranchOptions, "github" | "token">): Promise<void>;
     checkout(options: Omit<CheckoutOptions, "github" | "token">): Promise<{
         folder: string;
+        branch: string;
     }>;
     mergeToMainBranch(options: MergeToMainBranchOptions): Promise<false | import("@octokit/types").OctokitResponse<{
         sha: string;

@@ -413,4 +413,5 @@ export declare type CheckoutOptions = BaseOptions & {
 };
 export declare const checkout: (options: CheckoutOptions) => Promise<{
     folder: string;
+    branch: string;
 }>;
