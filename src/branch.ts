@@ -93,3 +93,30 @@ export const checkout = async (options: CheckoutOptions) => {
     branch: branch.name,
   };
 };
+
+export type CompareBranchesOptions = BaseOptions & {
+  base?: string;
+  branch: string;
+  github: Octokit;
+};
+
+export const compareBranches = async (options: CompareBranchesOptions) => {
+  let base = options.base;
+  if (!base) {
+    const mainBranch = await getMainBranch({
+      owner: options.owner,
+      repo: options.repo,
+      github: options.github,
+    });
+    base = mainBranch?.name;
+  }
+  const res = await options.github.rest.repos.compareCommitsWithBasehead({
+    owner: options.owner,
+    repo: options.repo,
+    basehead: `${base}...${options.branch}`,
+  });
+
+  return {
+    shouldRebase: ["behind", "diverged"].includes(res.data.status),
+  };
+};

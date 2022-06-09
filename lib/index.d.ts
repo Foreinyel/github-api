@@ -1,7 +1,7 @@
 import { CommitPushOptions } from "./commit-push";
 import { CreateRepositoryOptions, CreateRepositoryFromTemplateOptions } from "./api";
-import { CheckoutOptions, CreateBranchOptions } from "./branch";
-import { MergeToMainBranchOptions } from "./pull";
+import { CheckoutOptions, CompareBranchesOptions, CreateBranchOptions } from "./branch";
+import { MergeBranchesOptions, MergeToMainBranchOptions } from "./pull";
 export interface GitHubOptions {
     token: string;
 }
@@ -273,10 +273,16 @@ export declare class GitHub {
         folder: string;
         branch: string;
     }>;
-    mergeToMainBranch(options: MergeToMainBranchOptions): Promise<false | import("@octokit/types").OctokitResponse<{
-        sha: string;
+    mergeToMainBranch(options: Omit<MergeToMainBranchOptions, "github" | "token">): Promise<{
         merged: boolean;
-        message: string;
-    }, 200>>;
+        mergeUrl?: string | undefined;
+    }>;
+    mergeBranches(options: Omit<MergeBranchesOptions, "github" | "token">): Promise<{
+        merged: boolean;
+        mergeUrl?: string | undefined;
+    }>;
+    compareBranches(options: Omit<CompareBranchesOptions, "github" | "token">): Promise<{
+        shouldRebase: boolean;
+    }>;
 }
 export default GitHub;

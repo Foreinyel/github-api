@@ -5,32 +5,67 @@ import { checkBranch, getMainBranch } from "./branch";
 
 export type MergeToMainBranchOptions = BaseOptions & {
   branch: string;
+  github: Octokit;
 };
 
-export const mergeToMainBranch = async (
-  github: Octokit,
-  options: MergeToMainBranchOptions
-) => {
+export const mergeToMainBranch = async (options: MergeToMainBranchOptions) => {
   const mainBranch = await checkBranch({
     owner: options.owner,
     repo: options.repo,
-    github,
+    github: options.github,
   });
   assert(!!mainBranch, "Invalid main branch.");
-  const res = await github.rest.pulls.create({
-    owner: options.owner,
-    repo: options.repo,
-    head: options.branch,
-    base: mainBranch?.name,
-    title: `merge ${options.branch} to ${mainBranch?.name}`,
+  return await mergeBranches({
+    ...options,
+    base: mainBranch.name,
   });
-  if (res?.data?.number) {
-    const merged = await github.rest.pulls.merge({
+};
+export type MergeBranchesOptions = BaseOptions & {
+  base: string;
+  branch: string;
+  github: Octokit;
+};
+
+export const mergeBranches = async (options: MergeBranchesOptions) => {
+  const result = {
+    merged: false,
+  } as { merged: boolean; mergeUrl?: string };
+  try {
+    const baseBranch = await checkBranch({
       owner: options.owner,
       repo: options.repo,
-      pull_number: res.data.number,
+      github: options.github,
+      branch: options.base,
     });
-    return merged;
+    assert(!!baseBranch, "Invalid base branch.");
+    const branch = await checkBranch({
+      owner: options.owner,
+      repo: options.repo,
+      github: options.github,
+      branch: options.branch,
+    });
+    assert(!!branch, "Invalid branch.");
+    const res = await options.github.rest.pulls.create({
+      owner: options.owner,
+      repo: options.repo,
+      head: options.branch,
+      base: baseBranch.name,
+      title: `merge ${options.branch} to ${baseBranch.name}`,
+    });
+    result.mergeUrl = res.url;
+
+    if (res?.data?.number) {
+      const merged = await options.github.rest.pulls.merge({
+        owner: options.owner,
+        repo: options.repo,
+        pull_number: res.data.number,
+      });
+      result.merged = merged.data.merged;
+    }
+    return result;
+  } catch (err) {
+    console.error(err);
+  } finally {
+    return result;
   }
-  return false;
 };

@@ -7,8 +7,10 @@ const github = new GitHub({
   token,
 });
 
-github.mergeToMainBranch({
-  owner: "Foreinyel",
-  repo: "svelte-count",
-  branch: "tmp001",
-});
+github
+  .mergeToMainBranch({
+    owner: "Foreinyel",
+    repo: "count-button-secondary",
+    branch: "develop",
+  })
+  .then((resulet) => console.log(resulet));

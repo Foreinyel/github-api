@@ -415,3 +415,11 @@ export declare const checkout: (options: CheckoutOptions) => Promise<{
     folder: string;
     branch: string;
 }>;
+export declare type CompareBranchesOptions = BaseOptions & {
+    base?: string;
+    branch: string;
+    github: Octokit;
+};
+export declare const compareBranches: (options: CompareBranchesOptions) => Promise<{
+    shouldRebase: boolean;
+}>;
