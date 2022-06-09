@@ -283,6 +283,7 @@ export declare class GitHub {
     }>;
     compareBranches(options: Omit<CompareBranchesOptions, "github" | "token">): Promise<{
         shouldRebase: boolean;
+        shouldMerge: boolean;
     }>;
 }
 export default GitHub;

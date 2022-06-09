@@ -118,5 +118,6 @@ export const compareBranches = async (options: CompareBranchesOptions) => {
 
   return {
     shouldRebase: ["behind", "diverged"].includes(res.data.status),
+    shouldMerge: ["ahead", "diverged"].includes(res.data.status),
   };
 };

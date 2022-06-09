@@ -422,4 +422,5 @@ export declare type CompareBranchesOptions = BaseOptions & {
 };
 export declare const compareBranches: (options: CompareBranchesOptions) => Promise<{
     shouldRebase: boolean;
+    shouldMerge: boolean;
 }>;
